@@ -1,0 +1,111 @@
+/* =========================
+PERFIL PAGE
+========================= */
+
+.perfil {
+    width: 100%;
+}
+
+/* TITLE */
+
+.perfil h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* CARD STYLE */
+
+.perfil .card {
+    transition: all .25s ease;
+}
+
+.perfil .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .1);
+}
+
+/* FORM */
+
+.perfil form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* INPUTS */
+
+.perfil input {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--text);
+    font-size: 14px;
+    transition: all .2s ease;
+}
+
+.perfil input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, .2);
+}
+
+/* BUTTON */
+
+.perfil .btn {
+    margin-top: 10px;
+}
+
+/* PASSWORD SECTION */
+
+.perfil .password-section input {
+    margin-top: 10px;
+}
+
+/* PLAN INFO */
+
+.perfil .plan-info {
+    font-size: 15px;
+    margin-top: 10px;
+    color: var(--text-light);
+}
+
+/* SUCCESS MESSAGE */
+
+.perfil-success {
+    color: #2fb344;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* ERROR MESSAGE */
+
+.perfil-error {
+    color: #e5484d;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+
+    .perfil h2 {
+        font-size: 24px;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .perfil h2 {
+        font-size: 22px;
+    }
+
+    .perfil .card {
+        padding: 20px;
+    }
+
+}

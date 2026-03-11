@@ -1,0 +1,136 @@
+/* =========================
+REGISTER PAGE
+========================= */
+
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* CARD */
+
+.register-card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
+    animation: registerFade .4s ease;
+}
+
+/* TITLE */
+
+.register-card h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* FORM */
+
+.register-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* INPUTS */
+
+.register-card input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    transition: all .2s ease;
+    background: var(--background);
+    color: var(--text);
+}
+
+.register-card input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, .2);
+}
+
+/* CHECKBOX TERMS */
+
+.register-terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.register-terms input {
+    margin-top: 3px;
+}
+
+/* BUTTON */
+
+.register-card .btn {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* ERROR MESSAGE */
+
+.register-error {
+    color: #e5484d;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* LOGIN LINK */
+
+.register-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.register-footer button {
+    margin-left: 8px;
+}
+
+/* =========================
+ANIMATION
+========================= */
+
+@keyframes registerFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:600px) {
+
+    .register-card {
+        padding: 30px;
+    }
+
+    .register-card h2 {
+        font-size: 24px;
+    }
+
+}

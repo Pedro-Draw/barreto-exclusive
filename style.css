@@ -1,0 +1,378 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* ============================= */
+/* THEME VARIABLES */
+/* ============================= */
+
+:root {
+    --bg: #0b0b0d;
+    --bg-soft: #111114;
+
+    --card: rgba(21, 21, 24, 0.75);
+    /* Ajustado para glassmorphism melhor */
+    --card-soft: rgba(28, 28, 32, 0.8);
+
+    --border: rgba(255, 255, 255, 0.12);
+
+    --text: #ffffff;
+    --text-soft: #bdbdbd;
+
+    --gold: #d4af37;
+    --gold-soft: #e8c76a;
+
+    --primary: #3b82f6;
+
+    --danger: #ef4444;
+    --success: #22c55e;
+
+    --radius: 14px;
+
+    --shadow: 0 10px 30px rgba(0, 0, 0, .5);
+
+    --blur: blur(14px);
+}
+
+/* LIGHT MODE (mantido, mas opcional) */
+body.light {
+    --bg: #f7f7f9;
+    --bg-soft: #ffffff;
+
+    --card: rgba(255, 255, 255, 0.9);
+    --card-soft: #f3f3f5;
+
+    --border: #e4e4e7;
+
+    --text: #0a0a0a;
+    --text-soft: #5a5a5a;
+}
+
+/* ============================= */
+/* BASE + BACKGROUND IMAGE */
+/* ============================= */
+
+body {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
+        url("https://atc.esp.br/wp-content/uploads/2020/10/pagina-jiu-jitsu.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    transition: background .3s;
+}
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
+
+.container {
+    max-width: 1200px;
+    width: 92%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ============================= */
+/* GRID SYSTEM - RESPONSIVO COM AUTO-FIT */
+/* ============================= */
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ============================= */
+/* GLASSMORPHISM */
+/* ============================= */
+
+.glass,
+.card {
+    background: var(--card);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover,
+.glass:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================= */
+/* BUTTONS - maiores em mobile */
+/* ============================= */
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    min-height: 48px;
+    /* bom para touch */
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+    color: #000;
+}
+
+.btn-gold:hover {
+    transform: scale(1.04) translateY(-2px);
+}
+
+.btn-outline {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================= */
+/* INPUTS */
+/* ============================= */
+
+.input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    outline: none;
+}
+
+/* ============================= */
+/* HERO */
+/* ============================= */
+
+.hero {
+    padding: 8rem 0 6rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.hero p {
+    color: var(--text-soft);
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+/* ============================= */
+/* PLAN CARDS */
+/* ============================= */
+
+.plan {
+    padding: 2rem;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.plan:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.plan-price {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    margin: 1.5rem 0;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+/* ============================= */
+/* FAQ ACCORDION - responsivo */
+/* ============================= */
+
+.faq {
+    padding: 4rem 0;
+}
+
+.faq h2 {
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 3rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 1.2rem 0;
+    background: none;
+    border: none;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.faq-question:hover {
+    color: var(--gold);
+}
+
+.faq-answer {
+    padding: 0 0 1.2rem;
+    color: var(--text-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Ícone Chevron (ajuste tamanho) */
+.faq-question svg {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: transform 0.3s;
+}
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+.footer {
+    padding: 4rem 0 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.footer-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-icons div {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* ============================= */
+/* RESPONSIVE - MOBILE FIRST + AJUSTES */
+/* ============================= */
+
+/* Telas pequenas (mobile padrão) - base já é mobile */
+
+/* Tablets e telas médias */
+@media (min-width: 640px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .hero {
+        padding: 10rem 0 7rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+    }
+}
+
+/* Desktop pequeno / tablet grande */
+@media (min-width: 900px) {
+    .grid {
+        gap: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 4.5rem;
+    }
+
+    .plan {
+        padding: 2.5rem;
+    }
+}
+
+/* Desktop largo */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        padding: 0;
+    }
+
+    .hero {
+        padding: 12rem 0 8rem;
+    }
+}
+
+/* Evita que conteúdo fique muito largo em monitores ultra-wide */
+@media (min-width: 1800px) {
+    .container {
+        max-width: 1400px;
+    }
+}

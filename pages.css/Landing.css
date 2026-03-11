@@ -1,0 +1,329 @@
+/* =========================
+LANDING PAGE
+========================= */
+
+.landing {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero {
+    text-align: center;
+    padding: 140px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 18px;
+    color: var(--text-light);
+    line-height: 1.7;
+    max-width: 620px;
+    margin: auto;
+}
+
+/* HERO BUTTONS */
+
+.hero .btn {
+    margin-top: 25px;
+}
+
+/* =========================
+GRID
+========================= */
+
+.landing .grid {
+    margin-top: 60px;
+    gap: 30px;
+}
+
+/* =========================
+CARDS
+========================= */
+
+.landing .card {
+    padding: 30px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: all .25s ease;
+}
+
+.landing .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .12);
+}
+
+/* =========================
+BENEFITS
+========================= */
+
+.landing .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.landing .card p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* =========================
+PLANS
+========================= */
+
+.plan {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px;
+    background: var(--card);
+    transition: all .3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.plan:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .15);
+}
+
+/* destaque plano */
+
+.plan.highlight {
+    border: 2px solid var(--gold);
+    transform: scale(1.04);
+}
+
+/* título */
+
+.plan h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* descrição */
+
+.plan p {
+    color: var(--text-light);
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/* preço */
+
+.plan-price {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+/* botão */
+
+.plan .btn {
+    margin-top: auto;
+}
+
+/* =========================
+CTA SECTION
+========================= */
+
+.landing .hero h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.landing .hero p {
+    margin-bottom: 10px;
+}
+
+/* =========================
+FAQ
+========================= */
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.faq-answer {
+    margin-top: 10px;
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+.faq-question svg {
+    transition: transform .25s ease;
+}
+
+.faq-question .rotate {
+    transform: rotate(180deg);
+}
+
+
+/* FAQ Section - fundo transparente + contraste garantido */
+.faq {
+    color: #ffffff;
+    /* texto branco por padrão */
+    background-color: transparent;
+    /* ← fundo 100% transparente */
+    /* padding: 2rem 0; */
+    /* opcional: ajuste o espaçamento se quiser */
+}
+
+.faq h2 {
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    /* divisor bem sutil */
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 1rem 0;
+    background: none;
+    /* sem fundo no botão */
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    /* texto branco */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover,
+.faq-question:focus {
+    color: #ffd700;
+    /* dourado no hover/focus */
+    outline: none;
+}
+
+/* Ícone Chevron */
+.faq-question svg {
+    transition: transform 0.3s ease;
+    color: #ffffff;
+}
+
+.faq-question .rotate {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 0 1rem 0;
+    color: #dddddd;
+    /* cinza claro na resposta */
+    line-height: 1.6;
+}
+
+
+/* =========================
+FOOTER
+========================= */
+
+footer {
+    margin-top: 120px;
+    padding: 60px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* footer icons */
+
+.footer-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-icons div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: .85;
+    transition: opacity .2s;
+}
+
+.footer-icons div:hover {
+    opacity: 1;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:900px) {
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .plan {
+        padding: 28px;
+    }
+
+    .plan-price {
+        font-size: 32px;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .hero {
+        padding: 90px 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .footer-icons {
+        gap: 20px;
+    }
+
+}
