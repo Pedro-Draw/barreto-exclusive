@@ -1,233 +1,310 @@
-import React from "react"
-import { useApp } from "../App.jsx"
+// src/pages/Dashboard.jsx
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useApp, db } from "../App.jsx";
 
-function Dashboard(){
+import { format, differenceInDays } from "date-fns";
 
-const {user,addActivity,saveContract,saveMedical} = useApp()
+import {
+  User,
+  CreditCard,
+  CheckCircle,
+  AlertCircle,
+  Clock,
+  Dumbbell,
+  Bell,
+  RefreshCw,
+} from "lucide-react";
 
-const [contractAccepted,setContractAccepted] = React.useState(false)
-const [medicalDone,setMedicalDone] = React.useState(false)
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
-const [medical,setMedical] = React.useState({
-idade:"",
-peso:"",
-lesoes:"",
-objetivo:""
-})
+import RequireActivePlanBanner from "../components/RequireActivePlanBanner.jsx";
 
-/* =========================
-SIMULA STATUS
-========================= */
+function Dashboard() {
+  const { user, addActivity } = useApp();
+  const navigate = useNavigate();
 
-React.useEffect(()=>{
+  const [activities, setActivities] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-if(!user) return
+  // Registrar atividade de login no dashboard
+  useEffect(() => {
+    if (user) {
+      addActivity(user.id, "login_dashboard");
+    }
+  }, [user]);
 
-addActivity(user.id,"login")
+  // Carregar atividades e notificações
+  useEffect(() => {
+    if (!user) return;
 
-},[user])
+    async function loadData() {
+      setLoading(true);
 
-/* =========================
-CONTRATO
-========================= */
+      try {
+        const activitySnap = await getDocs(
+          query(
+            collection(db, "activity"),
+            where("userId", "==", user.id),
+            orderBy("date", "desc"),
+            limit(5)
+          )
+        );
 
-async function acceptContract(){
+        const acts = activitySnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          date: new Date(doc.data().date),
+        }));
 
-await saveContract(user.id,{
-nome:user.nome
-})
+        setActivities(acts);
 
-setContractAccepted(true)
+        const notifSnap = await getDocs(
+          query(
+            collection(db, "notifications"),
+            where("userId", "==", user.id),
+            where("read", "==", false),
+            orderBy("date", "desc")
+          )
+        );
 
+        const notifs = notifSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          date: new Date(doc.data().date),
+        }));
+
+        setNotifications(notifs);
+      } catch (err) {
+        console.error("Erro ao carregar dashboard:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, [user]);
+
+  if (!user) {
+    return (
+      <div className="container" style={{ padding: "80px", textAlign: "center" }}>
+        Carregando...
+      </div>
+    );
+  }
+
+  const hasPlan = !!user.plano && !!user.expiresAt;
+  const expiresDate = user.expiresAt ? new Date(user.expiresAt) : null;
+
+  const isExpired = expiresDate && expiresDate < new Date();
+
+  const daysLeft = expiresDate
+    ? differenceInDays(expiresDate, new Date())
+    : 0;
+
+  const planDisplay =
+    {
+      particular: "Aula Particular",
+      pacote8: "Pacote 8 Aulas",
+      mensal1: "Mensal 1x/semana",
+      mensal2: "Mensal 2x/semana",
+      semestral1: "Semestral 1x/semana",
+      semestral2: "Semestral 2x/semana",
+      anual1: "Anual 1x/semana",
+      anual2: "Anual 2x/semana",
+    }[user.plano] || user.plano || "Nenhum plano ativo";
+
+  return (
+    <div className="container">
+      <h2 style={{ marginBottom: "30px", textAlign: "center" }}>
+        Bem-vindo de volta, {user.nome?.split(" ")[0]}!
+      </h2>
+
+      <RequireActivePlanBanner />
+
+      {/* STATUS */}
+      <div className="grid grid-3" style={{ marginBottom: "40px" }}>
+        <div className="card">
+          <h3 style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <User size={22} /> Aluno
+          </h3>
+          <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>{user.nome}</p>
+          <p style={{ opacity: 0.8 }}>{user.email}</p>
+        </div>
+
+        <div className="card">
+          <h3 style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <CreditCard size={22} /> Plano Atual
+          </h3>
+
+          <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            {planDisplay}
+          </p>
+
+          {hasPlan && (
+            <p style={{ opacity: 0.8 }}>
+              Vence em {format(expiresDate, "dd/MM/yyyy")}
+            </p>
+          )}
+        </div>
+
+        <div className="card">
+          <h3 style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Clock size={22} /> Status
+          </h3>
+
+          {hasPlan ? (
+            <p
+              style={{
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                color: isExpired
+                  ? "#ef4444"
+                  : daysLeft <= 7
+                  ? "#f59e0b"
+                  : "#22c55e",
+              }}
+            >
+              {isExpired
+                ? "Expirado"
+                : daysLeft <= 7
+                ? `Expirando em ${daysLeft} dias`
+                : "Ativo"}
+            </p>
+          ) : (
+            <p style={{ fontSize: "1.2rem", color: "#ef4444" }}>
+              Sem assinatura
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* AÇÃO PRINCIPAL */}
+      <div
+        className="card"
+        style={{
+          textAlign: "center",
+          padding: "40px 20px",
+          marginBottom: "40px",
+          background: hasPlan && !isExpired ? "#f0fdf4" : "#fef2f2",
+        }}
+      >
+        {hasPlan && !isExpired ? (
+          <>
+            <CheckCircle size={60} color="#22c55e" style={{ marginBottom: "16px" }} />
+
+            <h3 style={{ marginBottom: "16px" }}>
+              Tudo pronto para treinar!
+            </h3>
+
+            <p style={{ marginBottom: "24px", fontSize: "1.1rem" }}>
+              Seu plano está ativo. Acesse as técnicas.
+            </p>
+
+            <button
+              className="btn btn-gold"
+              onClick={() => navigate("/tecnicas")}
+              style={{ minWidth: "220px" }}
+            >
+              <Dumbbell size={20} style={{ marginRight: "10px" }} />
+              Ver Técnicas
+            </button>
+          </>
+        ) : (
+          <>
+            <AlertCircle size={60} color="#ef4444" style={{ marginBottom: "16px" }} />
+
+            <h3 style={{ marginBottom: "16px" }}>
+              {isExpired
+                ? "Seu plano expirou"
+                : "Complete sua assinatura"}
+            </h3>
+
+            <button
+              className="btn btn-gold"
+              onClick={() => navigate("/contract-sign")}
+              style={{ minWidth: "220px" }}
+            >
+              <RefreshCw size={20} style={{ marginRight: "10px" }} />
+              {isExpired ? "Renovar Agora" : "Assinar Agora"}
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* ATIVIDADE */}
+      <div className="card" style={{ marginBottom: "40px" }}>
+        <h3 style={{ marginBottom: "20px" }}>
+          <Clock size={22} /> Atividade Recente
+        </h3>
+
+        {loading ? (
+          <p>Carregando...</p>
+        ) : activities.length > 0 ? (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {activities.map((act) => (
+              <li
+                key={act.id}
+                style={{
+                  padding: "12px 0",
+                  borderBottom: "1px solid #eee",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>{act.type?.replace("_", " ")}</span>
+
+                <span style={{ opacity: 0.7 }}>
+                  {format(act.date, "dd/MM HH:mm")}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Nenhuma atividade.</p>
+        )}
+      </div>
+
+      {/* NOTIFICAÇÕES */}
+      <div className="card">
+        <h3 style={{ marginBottom: "20px" }}>
+          <Bell size={22} /> Notificações
+        </h3>
+
+        {notifications.length > 0 ? (
+          notifications.map((notif) => (
+            <div
+              key={notif.id}
+              style={{
+                padding: "12px",
+                background: "#fefce8",
+                borderRadius: "8px",
+                marginBottom: "12px",
+              }}
+            >
+              {notif.msg}
+
+              <br />
+
+              <small style={{ opacity: 0.7 }}>
+                {format(notif.date, "dd/MM HH:mm")}
+              </small>
+            </div>
+          ))
+        ) : (
+          <p>Nenhuma notificação.</p>
+        )}
+      </div>
+    </div>
+  );
 }
 
-/* =========================
-ANAMNESE
-========================= */
-
-async function sendMedical(e){
-
-e.preventDefault()
-
-await saveMedical(user.id,medical)
-
-setMedicalDone(true)
-
-}
-
-/* =========================
-RENDER
-========================= */
-
-return(
-
-<div className="container">
-
-<h2 style={{marginBottom:"30px"}}>
-Dashboard
-</h2>
-
-{/* STATUS */}
-
-<div className="grid grid-3">
-
-<div className="card">
-
-<h3>Aluno</h3>
-
-<p>{user?.nome}</p>
-
-</div>
-
-<div className="card">
-
-<h3>Plano</h3>
-
-<p>{user?.plano || "Nenhum ativo"}</p>
-
-</div>
-
-<div className="card">
-
-<h3>Status</h3>
-
-<p>
-{user?.plano ? "Ativo" : "Sem assinatura"}
-</p>
-
-</div>
-
-</div>
-
-{/* CONTRATO */}
-
-<div className="card" style={{marginTop:"40px"}}>
-
-<h3>
-Contrato de Treinamento
-</h3>
-
-<p style={{marginBottom:"20px"}}>
-Para iniciar os treinos é necessário aceitar o contrato digital.
-</p>
-
-{contractAccepted ? (
-
-<div>
-Contrato aceito.
-</div>
-
-):(
-
-<button
-className="btn btn-gold"
-onClick={acceptContract}
->
-Aceitar Contrato
-</button>
-
-)}
-
-</div>
-
-{/* ANAMNESE */}
-
-<div className="card" style={{marginTop:"40px"}}>
-
-<h3>
-Ficha de Anamnese
-</h3>
-
-{medicalDone ? (
-
-<p>
-Ficha enviada com sucesso.
-</p>
-
-):(
-
-<form onSubmit={sendMedical}>
-
-<input
-type="number"
-placeholder="Idade"
-value={medical.idade}
-onChange={e=>setMedical({...medical,idade:e.target.value})}
-/>
-
-<input
-type="number"
-placeholder="Peso"
-value={medical.peso}
-onChange={e=>setMedical({...medical,peso:e.target.value})}
-/>
-
-<input
-type="text"
-placeholder="Lesões ou limitações"
-value={medical.lesoes}
-onChange={e=>setMedical({...medical,lesoes:e.target.value})}
-/>
-
-<input
-type="text"
-placeholder="Objetivo com o treino"
-value={medical.objetivo}
-onChange={e=>setMedical({...medical,objetivo:e.target.value})}
-/>
-
-<button
-className="btn btn-gold"
-style={{marginTop:"10px"}}
->
-Enviar Ficha
-</button>
-
-</form>
-
-)}
-
-</div>
-
-{/* NOTIFICAÇÕES */}
-
-<div className="card" style={{marginTop:"40px"}}>
-
-<h3>
-Notificações
-</h3>
-
-<ul style={{marginTop:"10px"}}>
-
-<li>Bem-vindo à Barreto Exclusive.</li>
-<li>Complete sua ficha de anamnese.</li>
-<li>Assine um plano para iniciar os treinos.</li>
-
-</ul>
-
-</div>
-
-{/* HISTÓRICO */}
-
-<div className="card" style={{marginTop:"40px"}}>
-
-<h3>
-Atividade Recente
-</h3>
-
-<ul>
-
-<li>Login realizado</li>
-<li>Conta criada</li>
-
-</ul>
-
-</div>
-
-</div>
-
-)
-
-}
-
-export default Dashboard
+export default Dashboard;

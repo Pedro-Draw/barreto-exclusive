@@ -1,136 +1,382 @@
-/* =========================
-REGISTER PAGE
-========================= */
-
 .register-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 40px;
+    position: relative;
+    background: transparent;
+    overflow: hidden;
 }
 
-/* CARD */
+#bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
 
 .register-card {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    max-width: 460px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
-    animation: registerFade .4s ease;
+    max-width: 520px;
+    padding: 50px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(0, 0, 8, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* TITLE */
+.register-card h1 {
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+}
 
 .register-card h2 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 25px;
     text-align: center;
+    margin: 0 0 20px;
 }
-
-/* FORM */
 
 .register-card form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
-/* INPUTS */
-
 .register-card input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    font-size: 15px;
-    transition: all .2s ease;
-    background: var(--background);
-    color: var(--text);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
 }
 
 .register-card input:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, .2);
+    border-color: #d4af37;
 }
 
-/* CHECKBOX TERMS */
+input.valid {
+    border-color: #73d13d !important;
+    box-shadow: 0 0 0 2px rgba(115, 209, 61, 0.2);
+}
+
+input.invalid {
+    border-color: #ff4d4f !important;
+    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+.input-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-password input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.eye {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, color 0.2s;
+}
+
+.eye:hover {
+    color: #fff;
+}
+
+.eye.active {
+    transform: scale(1.15);
+    color: #d4af37;
+}
+
+.btn-gold {
+    padding: 16px;
+    background: linear-gradient(135deg, #d4af37, #f5d07a);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-gold:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.btn-gold:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.password-strength {
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 6px 0 8px;
+}
+
+.strength-bar {
+    height: 100%;
+    transition: width 0.4s ease, background 0.4s ease;
+}
+
+.strength-text {
+    font-size: 13px;
+    color: #ccc;
+    display: block;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.password-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.password-requirements li {
+    margin: 4px 0;
+    position: relative;
+    padding-left: 22px;
+}
+
+.password-requirements li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #888;
+}
+
+.password-requirements li.met {
+    color: #73d13d;
+}
+
+.password-requirements li.met::before {
+    content: "✔";
+    color: #73d13d;
+}
 
 .register-terms {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     font-size: 14px;
-    color: var(--text-light);
+    color: #ddd;
 }
 
 .register-terms input {
-    margin-top: 3px;
+    accent-color: #d4af37;
 }
 
-/* BUTTON */
-
-.register-card .btn {
-    width: 100%;
-    margin-top: 5px;
+.link {
+    color: #d4af37;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
 }
 
-/* ERROR MESSAGE */
+.link:hover {
+    text-decoration: underline;
+}
 
-.register-error {
-    color: #e5484d;
+.error {
+    color: #ff5252;
     font-size: 14px;
-    margin-bottom: 5px;
-}
-
-/* LOGIN LINK */
-
-.register-footer {
-    margin-top: 20px;
     text-align: center;
+}
+
+.success {
+    color: #73d13d;
+    font-weight: 500;
+    text-align: center;
+    margin: 12px 0;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 10px;
     font-size: 14px;
-    color: var(--text-light);
+    color: #ccc;
 }
 
-.register-footer button {
-    margin-left: 8px;
+.login-link button {
+    margin-left: 6px;
+    color: #d4af37;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
 }
 
-/* =========================
-ANIMATION
-========================= */
+.login-link button:hover {
+    text-decoration: underline;
+}
 
-@keyframes registerFade {
+.terms-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
 
-    from {
-        opacity: 0;
-        transform: translateY(15px);
+.terms-card {
+    background: white;
+    color: black;
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.terms-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #111;
+    padding-right: 12px;
+}
+
+.terms-content strong {
+    color: #000;
+}
+
+.signature-canvas {
+    border: 2px dashed #888;
+    border-radius: 12px;
+    background: #f8f9fa;
+    touch-action: none;
+    width: 100% !important;
+    max-width: 500px;
+    height: 220px !important;
+}
+
+.signature-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.signature-actions button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    flex: 1;
+    min-width: 120px;
+}
+
+.signature-actions button:first-child {
+    background: #eee;
+    color: #333;
+}
+
+.signature-actions button:nth-child(2) {
+    background: #ddd;
+    color: #444;
+}
+
+.signature-actions button:last-child {
+    background: linear-gradient(135deg, #d4af37, #f5d07a);
+    color: #000;
+}
+
+.signature-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.back-home {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 8, 0.45);
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+}
+
+.back-home:hover {
+    background: rgba(0, 0, 8, 0.65);
+    transform: translateX(-3px);
+}
+
+.back-home svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+@media (max-width: 600px) {
+    .register-page {
+        padding: 20px;
     }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media(max-width:600px) {
 
     .register-card {
-        padding: 30px;
+        padding: 30px 20px;
     }
 
-    .register-card h2 {
-        font-size: 24px;
+    .terms-card {
+        padding: 24px 16px;
+        width: 94%;
     }
 
+    .signature-canvas {
+        height: 180px !important;
+    }
+
+    .btn-gold {
+        padding: 14px;
+    }
+
+    .signature-actions {
+        flex-direction: column;
+    }
 }

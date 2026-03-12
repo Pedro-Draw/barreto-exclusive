@@ -1,0 +1,111 @@
+.notas-page {
+    padding-top: 80px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.new-btn {
+    padding: 0.8rem 1.5rem;
+}
+
+.edit-card {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.note-title-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.3rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--gold);
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.note-content-input {
+    width: 100%;
+    min-height: 180px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    resize: vertical;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.notes-grid {
+    gap: 1.5rem;
+}
+
+.note-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+    transition: transform 0.3s;
+}
+
+.note-card:hover {
+    transform: translateY(-8px);
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.note-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.note-date {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+}
+
+.note-content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    min-height: 80px;
+}
+
+.note-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.note-actions button {
+    background: none;
+    border: none;
+    color: var(--text-soft);
+    cursor: pointer;
+}
+
+.delete-btn {
+    color: var(--danger) !important;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-soft);
+    font-size: 1.2rem;
+}

@@ -1,0 +1,106 @@
+.data-page {
+    padding-top: 80px;
+}
+
+.metrics-grid {
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 1.8rem 1rem;
+    border-radius: 20px;
+}
+
+.metric-card svg {
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+}
+
+.value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin: 0.5rem 0;
+}
+
+.progress-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(var(--gold) 0% var(--progress), rgba(212, 175, 55, 0.2) var(--progress) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.8rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.calendar-card {
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.day {
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.day.today {
+    background: var(--gold);
+    color: #000;
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--success);
+    border-radius: 50%;
+    margin: 0.5rem auto 0;
+}
+
+.status-dot.inactive {
+    background: var(--danger);
+}
+
+.placeholder-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 200px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--gold), #f5d07a);
+    border-radius: 8px 8px 0 0;
+    transition: height 0.6s ease;
+}

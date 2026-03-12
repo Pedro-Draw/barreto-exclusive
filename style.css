@@ -1,4 +1,5 @@
-/* RESET */
+/* style.css (global) - versão final com fundo perfeito em todos dispositivos */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +7,36 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+/* Garantir altura total e fundo perfeito em todos os dispositivos */
 html,
-body {
+body,
+#root {
     height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Fundo global - ajusta perfeitamente sem distorção */
+body {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
+        url("https://atc.esp.br/wp-content/uploads/2020/10/pagina-jiu-jitsu.jpg") center/cover no-repeat fixed;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text);
+    line-height: 1.5;
+    transition: background .3s;
+}
+
+/* Evita vazamento e garante que o conteúdo preencha a tela */
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
@@ -31,7 +59,6 @@ button {
     --bg-soft: #111114;
 
     --card: rgba(21, 21, 24, 0.75);
-    /* Ajustado para glassmorphism melhor */
     --card-soft: rgba(28, 28, 32, 0.8);
 
     --border: rgba(255, 255, 255, 0.12);
@@ -54,7 +81,7 @@ button {
     --blur: blur(14px);
 }
 
-/* LIGHT MODE (mantido, mas opcional) */
+/* LIGHT MODE */
 body.light {
     --bg: #f7f7f9;
     --bg-soft: #ffffff;
@@ -68,27 +95,7 @@ body.light {
     --text-soft: #5a5a5a;
 }
 
-/* ============================= */
-/* BASE + BACKGROUND IMAGE */
-/* ============================= */
-
-body {
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)),
-        url("https://atc.esp.br/wp-content/uploads/2020/10/pagina-jiu-jitsu.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: var(--text);
-    line-height: 1.5;
-    min-height: 100vh;
-    transition: background .3s;
-}
-
-/* ============================= */
 /* CONTAINER */
-/* ============================= */
-
 .container {
     max-width: 1200px;
     width: 92%;
@@ -96,10 +103,7 @@ body {
     padding: 0 1rem;
 }
 
-/* ============================= */
-/* GRID SYSTEM - RESPONSIVO COM AUTO-FIT */
-/* ============================= */
-
+/* GRID */
 .grid {
     display: grid;
     gap: 1.5rem;
@@ -117,10 +121,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-/* ============================= */
-/* GLASSMORPHISM */
-/* ============================= */
-
+/* GLASSMORPHISM REFINED */
 .glass,
 .card {
     background: var(--card);
@@ -139,10 +140,7 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* ============================= */
-/* BUTTONS - maiores em mobile */
-/* ============================= */
-
+/* BUTTONS */
 .btn {
     padding: 0.8rem 1.5rem;
     border-radius: 12px;
@@ -154,16 +152,17 @@ body {
     transition: all 0.2s ease;
     font-size: 1rem;
     min-height: 48px;
-    /* bom para touch */
 }
 
 .btn-gold {
     background: linear-gradient(135deg, var(--gold), var(--gold-soft));
     color: #000;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
 .btn-gold:hover {
     transform: scale(1.04) translateY(-2px);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
 }
 
 .btn-outline {
@@ -176,10 +175,7 @@ body {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* ============================= */
 /* INPUTS */
-/* ============================= */
-
 .input {
     width: 100%;
     padding: 0.9rem 1rem;
@@ -197,10 +193,7 @@ body {
     outline: none;
 }
 
-/* ============================= */
 /* HERO */
-/* ============================= */
-
 .hero {
     padding: 8rem 0 6rem;
     text-align: center;
@@ -219,10 +212,7 @@ body {
     margin: 0 auto 2rem;
 }
 
-/* ============================= */
-/* PLAN CARDS */
-/* ============================= */
-
+/* PLAN */
 .plan {
     padding: 2rem;
     border-radius: 20px;
@@ -244,10 +234,7 @@ body {
     font-weight: 700;
 }
 
-/* ============================= */
-/* FAQ ACCORDION - responsivo */
-/* ============================= */
-
+/* FAQ */
 .faq {
     padding: 4rem 0;
 }
@@ -290,17 +277,13 @@ body {
     line-height: 1.6;
 }
 
-/* Ícone Chevron (ajuste tamanho) */
 .faq-question svg {
     flex-shrink: 0;
     margin-left: 1rem;
     transition: transform 0.3s;
 }
 
-/* ============================= */
 /* FOOTER */
-/* ============================= */
-
 .footer {
     padding: 4rem 0 2rem;
     text-align: center;
@@ -322,13 +305,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* ============================= */
-/* RESPONSIVE - MOBILE FIRST + AJUSTES */
-/* ============================= */
-
-/* Telas pequenas (mobile padrão) - base já é mobile */
-
-/* Tablets e telas médias */
+/* RESPONSIVE */
 @media (min-width: 640px) {
     .container {
         padding: 0 2rem;
@@ -343,7 +320,6 @@ body {
     }
 }
 
-/* Desktop pequeno / tablet grande */
 @media (min-width: 900px) {
     .grid {
         gap: 2rem;
@@ -358,7 +334,6 @@ body {
     }
 }
 
-/* Desktop largo */
 @media (min-width: 1200px) {
     .container {
         max-width: 1200px;
@@ -370,9 +345,170 @@ body {
     }
 }
 
-/* Evita que conteúdo fique muito largo em monitores ultra-wide */
 @media (min-width: 1800px) {
     .container {
         max-width: 1400px;
+    }
+}
+
+/* =================================
+PREMIUM IMPROVEMENTS & CONTRACT PAGE
+================================= */
+
+.gold-gradient {
+    background: linear-gradient(90deg, var(--gold), #f0d06b, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-premium {
+    background: rgba(21, 21, 24, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.card-premium {
+    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.1);
+}
+
+.contract-sign {
+    padding: 40px 20px;
+}
+
+.contract-card {
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+.contract-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contract-text {
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    border: 1px solid var(--border);
+}
+
+.signature-pad {
+    width: 100%;
+    max-width: 560px;
+    height: 220px;
+    border: 3px solid var(--gold);
+    background: #ffffff;
+    border-radius: 16px;
+    cursor: crosshair;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    display: block;
+}
+
+.payment-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.pix-box {
+    background: var(--card-soft);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid var(--gold);
+}
+
+.pix-box img {
+    width: 220px;
+    height: 220px;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.payment-option {
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+    transform: translateY(-5px);
+}
+
+
+
+/* ////////////////////////////////////////////////////////////////////////////// */
+
+
+
+/* Adições para o layout com FloatingMenu */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.topbar-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.theme-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--text-soft);
+}
+
+.main-content {
+    padding: 2rem;
+    min-height: calc(100vh - 70px);
+    margin-top: 70px;
+    /* espaço para topbar */
+}
+
+/* Ajuste mobile */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .main-content {
+        padding: 1.5rem 1rem;
     }
 }
