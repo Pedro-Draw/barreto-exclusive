@@ -353,6 +353,7 @@ function Perfil() {
         onClose={() => setShowPdfModal(false)}
       />
     </div>
+    
   );
 }
 
